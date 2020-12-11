@@ -16,6 +16,7 @@ public class RecipeService {
     private final Map<Long, Recipe> map = new ConcurrentHashMap<>();
 
     public Recipe create(final Recipe recipe){
+        RecipeValidator.validateOnCreate(recipe);
         recipe.setId(sequence.incrementAndGet());
         map.put(recipe.getId(), recipe);
         return recipe;
@@ -26,6 +27,7 @@ public class RecipeService {
     }
 
     public Recipe save(final Recipe recipe){
+        RecipeValidator.validateOnUpdate(recipe);
         return map.replace(recipe.getId(), recipe);
     }
 
