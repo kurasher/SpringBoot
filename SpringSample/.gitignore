@@ -23,6 +23,7 @@ bin/
 *.iml
 *.ipr
 out/
+kajitool-h2db/
 !**/src/main/**/out/
 !**/src/test/**/out/
 
