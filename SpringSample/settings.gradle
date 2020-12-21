@@ -1,2 +1,2 @@
 rootProject.name = 'demo'
-include 'kajitool-web', 'kajitool-flyway'
+include 'kajitool-web', 'kajitool-flyway', 'kajitool-dao'
