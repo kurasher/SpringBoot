@@ -1,4 +1,4 @@
-package com.example.SpringBeginnerEasy.app.inquiry;
+package com.example.SpringBeginnerEasy.app.survey;
 
 import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
@@ -12,54 +12,48 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
-@RequestMapping("/inquiry")
-public class InquiryController {
-
+@RequestMapping("/survey")
+public class SurveyController {
     @GetMapping("/form")
-    public String form(InquiryForm inquiryForm,
+    public String form(SurveyForm surveyForm,
                        Model model,
                        @ModelAttribute("complete") String complete){
-        model.addAttribute("title", "Inquiry Form");
-        return "inquiry/form";
+        model.addAttribute("title", "Survey Form");
+        return "survey/form";
     }
 
     @PostMapping("/form")
-    public String formGoBack(InquiryForm inquiryForm, Model model){
-        model.addAttribute("title", "Inquiry Form");
-        return "inquiry/form";
+    public String formGoBack(SurveyForm surveyForm,
+                             Model model){
+        model.addAttribute("title", "Survey Form");
+        return "survey/form";
     }
 
-    @PostMapping("/confirm.html")
-    public String confirm(@Validated InquiryForm inquiryForm,
+    @PostMapping("/confirm")
+    public String confirm(@Validated SurveyForm surveyForm,
                           BindingResult bindingResult,
                           Model model){
-        if(bindingResult.hasErrors()){
-            model.addAttribute("title", "Inquiry Form");
-            return "inquiry/form";
+        if (bindingResult.hasErrors()){
+            model.addAttribute("title", "Survey Form");
+            return "survey/form";
         }
 
         model.addAttribute("title", "Confirm Page");
-        return "inquiry/confirm.html";
+        return "survey/confirm.html";
     }
 
     @PostMapping("/complete")
-    public String complete(@Validated InquiryForm inquiryForm,
+    public String complete(@Validated SurveyForm surveyForm,
                            BindingResult bindingResult,
                            Model model,
                            RedirectAttributes redirectAttributes){
 
-        //　なぜ確認ページ(confirm.html)後にまたValidationが必要か
-        //　ブラウザによっては検証によって内容を書き換えることが可能であるため、
-        //　それを防ぐ意味でValidationを書いている
         if(bindingResult.hasErrors()){
-            model.addAttribute("title", "InquiryForm");
-            return "inquiry/form";
+            model.addAttribute("title", "Survey Form");
+            return "survey/form";
         }
 
-        //TODO: DBへの登録処理
-
         redirectAttributes.addFlashAttribute("complete", "Registered");
-        return "redirect:/inquiry/form";
-
+        return "redirect:/survey/form";
     }
 }
